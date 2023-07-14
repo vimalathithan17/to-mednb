@@ -1,0 +1,28 @@
+<form action="{%url 'polls:form_url' %}" method="post">
+    {% csrf_token %}
+    <label for="qn">enter the choice:</label>
+    <input type="text" name="the choice" id="qn" value="{{val}}">
+    <input type="submit" value="submit">
+    {%if val != 'he'%}
+    {%if questions != None and questions|length != 0 %}
+        <p>{{questions|length}}</p>
+        <h3>The queations with "{{val}}" as choice are:</h3>
+       
+        <table>
+            <tr>
+                <th>question</th>
+                <th>date published</th>
+            </tr>
+            {%for ques in questions%}
+            <tr>
+                <td>{{ques.question_text}}</td>
+                <td>{{ques.pub_date}}</td>
+            </tr>
+            {%endfor%}
+        </table>
+
+    {%else %}
+    <p>No question found. Please try again!</p>
+    {%endif%}
+    {%endif%}
+</form>
